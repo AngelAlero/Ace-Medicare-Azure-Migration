@@ -1,0 +1,48 @@
+3-Year Total Cost of Ownership (TCO) Comparison
+To prove whether moving to Azure saves money, I compared the full 3-year cost of keeping Ace Medicare Clinics’ 16 servers on-premises against moving them to Azure. Calculations were modeled using the Microsoft Azure TCO Calculator.
+1. Full 3-Year Cost Breakdown
+•	Buying New Servers and Drives:
+-	Stay On-Premises: $240,000
+-	Azure Standard Pay-As-You-Go: $0
+-	Azure with Discounts (Optimized): $0
+-	Reason: On-premises requires buying replacement servers and 50 TB of storage in Year 1.
+•	Monthly Server and Storage Rent:
+-	Stay On-Premises: $0
+-	Azure Standard Pay-As-You-Go: $288,000
+-	Azure with Discounts (Optimized): $158,400
+-	Reason: 45% cheaper using 3-Year Reserved Instances plus cheap archive storage.
+•	Windows and SQL Licenses:
+-	Stay On-Premises: $85,000
+-	Azure Standard Pay-As-You-Go: $108,000
+-	Azure with Discounts (Optimized): $18,000
+-	Reason: Reusing our existing licenses on Azure using Azure Hybrid Benefit.
+•	Electricity and Cooling (AC):
+-	Stay On-Premises: $66,000
+-	Azure Standard Pay-As-You-Go: $0
+-	Azure with Discounts (Optimized): $0
+-	Reason: Powering and cooling the hospital server room costs about $1,833 every month.
+•	IT Staff Maintenance Time:
+-	Stay On-Premises: $126,000
+-	Azure Standard Pay-As-You-Go: $72,000
+-	Azure with Discounts (Optimized): $72,000
+-	Reason: Less time spent fixing broken hardware and doing manual updates.
+•	Security and Data Backups:
+-	Stay On-Premises: $33,000
+-	Azure Standard Pay-As-You-Go: $45,000
+-	Azure with Discounts (Optimized): $42,000
+-	Reason: Includes Defender for Cloud (HIPAA), Key Vault, and cloud backups.
+•	One-Time Migration Setup:
+-	Stay On-Premises: $0
+-	Azure Standard Pay-As-You-Go: $47,600
+-	Azure with Discounts (Optimized): $47,600
+-	Reason: Cost of moving data and testing security in Year 1.
+•	TOTAL 3-YEAR COST:
+-	Stay On-Premises: $550,000
+-	Azure Standard Pay-As-You-Go: $560,600
+-	Azure with Discounts (Optimized): $338,000
+-	Total Saved: $212,000 (38.5% Savings)
+Key Takeaway: If we just move to Azure using standard Pay-As-You-Go pricing ($560,600), it actually costs slightly more than staying on-premises ($550,000). Applying Azure discounts is what unlocks the $212,000 savings.
+2. Year-by-Year Cash Flow
+•	Year 1: On-Premises costs $315,000 (huge upfront server purchase) vs. Azure Optimized at $144,400 (includes one-time move cost). Net savings in Year 1: $170,600.
+•	Year 2: On-Premises costs $117,500 (power, staff, licenses) vs. Azure Optimized at $96,800 (normal monthly Azure bill). Net savings in Year 2: $20,700. Total saved so far: $191,300.
+•	Year 3: On-Premises costs $117,500 (power, staff, licenses) vs. Azure Optimized at $96,800 (normal monthly Azure bill). Net savings in Year 3: $20,700. Total saved after 3 years: $212,000.

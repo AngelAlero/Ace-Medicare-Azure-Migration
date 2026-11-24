@@ -7,30 +7,29 @@ By moving to Azure and applying smart cost-saving discounts, Ace Medicare Clinic
 2. Hospital Workloads and How We Will Move Them (The 5 Rs)
 Before moving anything, I reviewed the 5 main IT systems the hospital currently uses and matched each one to the best migration strategy:
 •	System 1: Main Hospital Record System (EHR)
-o	Current Setup: Old Windows Server 2016 desktop and backend app.
-o	Migration Strategy: Rehost (Lift and Shift).
-o	New Azure Service: Azure Virtual Machines.
-o	Why This Choice Makes Sense: The software vendor no longer updates this app, so we cannot rewrite the code. Moving it as-is to an Azure VM gets us off old hardware safely with low risk.
+- Current Setup: Old Windows Server 2016 desktop and backend app.
+-	Migration Strategy: Rehost (Lift and Shift).
+-	New Azure Service: Azure Virtual Machines.
+-	Why This Choice Makes Sense: The software vendor no longer updates this app, so we cannot rewrite the code. Moving it as-is to an Azure VM gets us off old hardware safely with low risk.
 •	System 2: Patient Appointment and Lab Portal
-o	Current Setup: Local web server running a .NET web app.
-o	Migration Strategy: Refactor.
-o	New Azure Service: Azure App Service.
-o	Why This Choice Makes Sense: With a few small configuration tweaks, Azure handles server updates automatically and scales up when many patients book appointments in the morning.
+-	Current Setup: Local web server running a .NET web app.
+-	Migration Strategy: Refactor.
+-	New Azure Service: Azure App Service.
+-	Why This Choice Makes Sense: With a few small configuration tweaks, Azure handles server updates automatically and scales up when many patients book appointments in the morning.
 •	System 3: Patient Database
-o	Current Setup: Microsoft SQL Server 2019 holding 4 TB of patient files.
-o	Migration Strategy: Refactor.
-o	New Azure Service: Azure SQL Managed Instance.
-o	Why This Choice Makes Sense: It works just like our current SQL database, but Microsoft automatically handles backups, security patches, and crash recovery.
+-	Current Setup: Microsoft SQL Server 2019 holding 4 TB of patient files.
+-	Migration Strategy: Refactor.
+-	New Azure Service: Azure SQL Managed Instance.
+-	Why This Choice Makes Sense: It works just like our current SQL database, but Microsoft automatically handles backups, security patches, and crash recovery.
 •	System 4: X-Ray and MRI Image Storage
-o	Current Setup: Local hard drive storage holding 50 TB of medical scans.
-o	Migration Strategy: Rearchitect.
-o	New Azure Service: Azure Health Data Services and Azure Blob Storage.
-o	Why This Choice Makes Sense: Instead of buying expensive local hard drives every year, recent scans stay on fast storage while older scans move to cheap long-term cloud storage.
+-	Current Setup: Local hard drive storage holding 50 TB of medical scans.
+-	Migration Strategy: Rearchitect.
+-	New Azure Service: Azure Health Data Services and Azure Blob Storage.-o	Why This Choice Makes Sense: Instead of buying expensive local hard drives every year, recent scans stay on fast storage while older scans move to cheap long-term cloud storage.
 •	System 5: Staff Email and Messaging
-o	Current Setup: On-site Exchange 2016 email server for 800 staff members.
-o	Migration Strategy: Replace.
-o	New Azure Service: Microsoft 365 (Exchange Online and Teams).
-o	Why This Choice Makes Sense: Running an email server is hard work. Switching to Microsoft 365 gives doctors and nurses secure email and chat immediately with zero server maintenance.
+-	Current Setup: On-site Exchange 2016 email server for 800 staff members.
+-	Migration Strategy: Replace.
+-	New Azure Service: Microsoft 365 (Exchange Online and Teams).
+-	Why This Choice Makes Sense: Running an email server is hard work. Switching to Microsoft 365 gives doctors and nurses secure email and chat immediately with zero server maintenance.
 3. Healthcare Compliance and Patient Data Security
 Because hospitals store private medical records (Protected Health Information / PHI), we must follow strict healthcare privacy laws—specifically HIPAA (international healthcare standard) and NDPR (Nigeria Data Protection Regulation). Here is how we keep patient data legal and secure on Azure:
 •	Legal Agreement (HIPAA BAA): Ace Medicare Clinics will sign Microsoft’s official Business Associate Agreement (BAA), which legally guarantees that Microsoft’s cloud tools meet healthcare privacy rules.

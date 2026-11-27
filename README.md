@@ -1,75 +1,68 @@
-Healthcare Cloud Migration Project: Mapping Ace Medicare Clinics On-Premises Scenarios to Microsoft Azure
-1. Introduction and Core Cloud Fundamentals (CapEx vs. OpEx)
-Ace Medicare Clinics currently runs all its clinical and administrative technology inside a physical server room in the hospital basement (known as an on-premises data center). Because these physical servers are 5 years old, the hospital faces an urgent hardware replacement. This project maps each on-premises hospital scenario to the appropriate Microsoft Azure cloud service using Azure fundamentals and the "5 Rs" migration framework.
+# Healthcare Cloud Migration Project: Mapping Ace Medicare Clinics On-Premises Scenarios to Microsoft Azure
 
-•	Capital Expenditure (CapEx) - The On-Premises Model: CapEx means spending a large sum of money upfront ($240,000) to buy physical servers, storage drives, and networking cables. Once bought, the hospital owns the hardware, even if it sits idle at night, and must pay out of pocket when parts break or become outdated.
+## Project Summary & Tasks Completed
+In this project, I acted as a Cloud Solutions Architect to plan the migration of **Ace Medicare Clinics** from an aging on-premises server room to **Microsoft Azure**. Specifically, I completed the following tasks:
+1. **Workload Assessment:** Evaluated 5 real-world clinical IT workloads (Electronic Health Records, Patient Portal, SQL Database, Radiology Imaging, and Staff Email) for cloud readiness.
+2. **Migration Mapping (The 5 Rs):** Mapped each on-premises scenario to an appropriate Azure cloud service using Rehost, Refactor, Rearchitect, and Replace strategies.
+3. **Financial & TCO Analysis:** Built a 3-year Total Cost of Ownership (TCO) comparison evaluating CapEx vs. OpEx spending (detailed in `tco-calculation-sheet.txt`).
+4. **Compliance & Cost Optimization:** Designed a HIPAA/NDPR security architecture and a post-migration governance roadmap (detailed in `optimization-roadmap.txt`).
 
-•	Operating Expenditure (OpEx) - The Azure Cloud Model: OpEx means renting computing power from Microsoft Azure over the internet with zero upfront hardware cost. Ace Medicare Clinics pays a predictable monthly utility-style bill only for the exact computing resources and storage it actively uses, freeing up hospital funds for medical equipment and patient care.
+---
 
-•	Shared Responsibility Model: On-premises, the hospital is 100% responsible for everything—building security, power, cooling, hardware repairs, operating systems, and patient data. In Azure, Microsoft takes over physical data center security, hardware maintenance, and underlying network uptime, while Ace Medicare Clinics focuses on securing patient data, user accounts, and clinical applications.
-________________________________________
-2. Detailed On-Premises Scenarios and Azure Service Mapping (The 5 Rs)
-Below is a complete breakdown of the 5 on-premises hospital scenarios, the migration strategy chosen for each, what the target Azure service actually does, and why it fits the clinical use case.
-Scenario 1: Main Electronic Health Record (EHR) System
+## 1. Core Azure Fundamentals: CapEx vs. OpEx & Shared Responsibility
+Ace Medicare Clinics currently runs 16 physical servers inside its main facility server room (on-premises). Because these servers are 5 years old, the organization faces an immediate **$240,000** hardware replacement cost.
 
-•	On-Premises Situation: Doctors and nurses use a legacy Windows Server 2016 clinical software application to view patient medical histories and prescriptions. The software vendor no longer updates the code, so modifying the program would break it.
+* **Capital Expenditure (CapEx - On-Premises Model):** CapEx requires spending large sums of money upfront to buy physical servers, storage hard drives, and networking gear. Ace Medicare Clinics bears 100% of the risk if hardware breaks or sits idle at night.
+* **Operating Expenditure (OpEx - Azure Cloud Model):** OpEx means renting computing power from Microsoft Azure over the internet with zero upfront hardware purchase. Ace Medicare Clinics pays a predictable monthly bill based on actual usage, shifting IT from a fixed capital burden to an agile operating expense.
+* **Azure Shared Responsibility Model:** On-premises, the clinic IT team manages everything from physical building locks and air conditioning to software patches. In Azure, Microsoft manages physical data center security, hardware failures, and host networking, while Ace Medicare Clinics manages patient data security, user access, and application configuration.
 
-•	Migration Strategy (Rehost - Lift and Shift): Rehosting means moving an existing server directly from on-premises to the cloud without changing its underlying code or architecture.
+---
 
-•	Mapped Azure Service: Azure Virtual Machines (IaaS - Infrastructure as a Service): Azure Virtual Machines provide on-demand, scalable virtualized servers hosted in Microsoft’s data centers. Instead of maintaining a physical Windows box in the basement, the hospital runs an identical Windows Server 2016 virtual machine in Azure.
+## 2. Detailed On-Premises Scenarios & Azure Service Mapping (The 5 Rs)
 
-•	Healthcare Use Case and Justification: By rehosting onto Azure Virtual Machines (specifically memory-optimized E-series VMs), Ace Medicare Clinics gets off failing basement hardware in days with zero code changes, while gaining built-in Azure Site Recovery so patient records stay accessible during local power outages.
+### Scenario 1: Main Electronic Health Record (EHR) System
+* **On-Premises Setup:** Doctors and nurses use a legacy Windows Server 2016 desktop/backend application to view patient histories and prescriptions. The vendor no longer supports code modifications.
+* **Assigned Strategy (Rehost / Lift & Shift):** Moving an existing server directly to the cloud without modifying application code.
+* **Mapped Azure Service:** **Azure Virtual Machines (IaaS - Infrastructure as a Service)**
+* **How the Azure Service Works & Use Case:** Azure Virtual Machines provide on-demand, scalable virtualized servers hosted in Microsoft data centers. By rehosting the EHR system onto memory-optimized Azure VMs (E-series), Ace Medicare Clinics eliminates failing on-site hardware immediately with zero code changes while gaining automated backups and disaster recovery via **Azure Site Recovery**.
 
-Scenario 2: Patient Appointment Booking and Lab Results Portal
-•	On-Premises Situation: Patients log into a web portal hosted on a local Internet Information Services (IIS) web server to book doctor visits and download lab results. Every Monday morning between 8:00 AM and 11:00 AM, heavy patient traffic causes the local server to slow down or crash.
+### Scenario 2: Patient Appointment Booking and Lab Results Portal
+* **On-Premises Setup:** Patients log into an ASP.NET web portal hosted on a local IIS web server. Heavy Monday morning traffic (8:00 AM – 11:00 AM) frequently overwhelms the local server and causes slowdowns.
+* **Assigned Strategy (Refactor):** Making minor configuration adjustments so an application runs on a managed cloud platform without rewriting core code.
+* **Mapped Azure Service:** **Azure App Service (PaaS - Platform as a Service)**
+* **How the Azure Service Works & Use Case:** Azure App Service is a fully managed web hosting platform where Microsoft handles OS patching, security updates, and load balancing. Hosting the patient portal on Azure App Service enables **Autoscaling**, automatically adding compute power during busy Monday mornings and scaling down at night to save costs.
 
-•	Migration Strategy (Refactor): Refactoring means making small configuration adjustments to an application so it can take advantage of cloud-native platform features without rewriting the entire application from scratch.
+### Scenario 3: Core Patient Records and Billing Database
+* **On-Premises Setup:** 4 TB of structured patient demographics, insurance claims, and billing records sit on a local Microsoft SQL Server 2019 Enterprise server, requiring 15 hours/week of manual database administration.
+* **Assigned Strategy (Refactor):** Migrating the database to a managed cloud database engine while preserving existing SQL schemas and queries.
+* **Mapped Azure Service:** **Azure SQL Managed Instance (PaaS)**
+* **How the Azure Service Works & Use Case:** Azure SQL Managed Instance provides near-100% compatibility with on-premises SQL Server while automating backups, high availability, and patching. Clinical apps continue querying patient records seamlessly while Azure maintains encrypted point-in-time backups every 5 minutes.
 
-•	Mapped Azure Service: Azure App Service (PaaS - Platform as a Service): Azure App Service is a fully managed cloud platform for hosting web applications and APIs. Microsoft manages the underlying Windows/Linux operating system, security patches, and load balancing automatically.
+### Scenario 4: Radiology X-Ray, CT, and MRI Image Archive
+* **On-Premises Setup:** The radiology department stores 50 TB of large medical imaging files (DICOM format) on local Storage Area Network (SAN) disks that are 95% full.
+* **Assigned Strategy (Rearchitect):** Redesigning data storage architecture to leverage cloud-native APIs and tiered object storage.
+* **Mapped Azure Services:** **Azure Health Data Services (DICOM Service)** + **Azure Blob Storage**
+* **How the Azure Service Works & Use Case:** Azure Health Data Services natively ingests and manages medical imaging using standard DICOM protocols, backed by Azure Blob Storage. New X-rays stay in the fast **Hot Tier** for instant doctor viewing, automatically move to the **Cool Tier** after 90 days, and shift to the low-cost **Archive Tier** after 1 year to satisfy 7-year legal retention laws affordably.
 
-•	Healthcare Use Case and Justification: Moving the patient portal to Azure App Service solves the Monday morning crash problem using Autoscaling—Azure automatically adds extra web server power during busy morning hours and scales back down at night to save money.
+### Scenario 5: Clinic Staff Email and Clinical Messaging
+* **On-Premises Setup:** 800 doctors, nurses, and staff across Ace Medicare Clinics use an aging on-premises Microsoft Exchange 2016 email server that suffers downtime whenever local power fluctuates.
+* **Assigned Strategy (Replace):** Retiring an in-house server and adopting a commercial Software-as-a-Service (SaaS) solution.
+* **Mapped Cloud Service:** **Microsoft 365 (Exchange Online & Microsoft Teams - SaaS)**
+* **How the Azure Service Works & Use Case:** Microsoft 365 delivers fully managed enterprise email and collaboration over the internet with a 99.9% uptime SLA, eliminating physical server maintenance while giving clinic staff encrypted email and HIPAA-compliant Teams chat.
 
-Scenario 3: Core Patient Records and Billing Database
-•	On-Premises Situation: All patient demographics, insurance details, and treatment records (4 TB of structured data) sit on a local Microsoft SQL Server 2019 database. Hospital IT staff currently spend 15 hours every week manually running backups and applying security patches.
+---
 
-•	Migration Strategy (Refactor): Moving the database to a managed cloud database engine while keeping the existing SQL database structure intact.
+## 3. Healthcare Compliance (HIPAA & NDPR) and Security Architecture
+Because Ace Medicare Clinics processes Protected Health Information (PHI), the Azure architecture enforces strict privacy and security controls under **HIPAA** and **NDPR**:
+* **HIPAA Business Associate Agreement (BAA):** Executing Microsoft’s BAA legally guarantees that covered Azure services meet healthcare data protection standards.
+* **Azure Key Vault & Encryption:** All databases and Blob storage enforce **AES-256 encryption at rest** and **TLS 1.2+ encryption in transit**, with encryption keys secured inside hardware-backed **Azure Key Vault**.
+* **Azure Virtual Network (VNet) & Private Endpoints:** Patient databases are placed inside an isolated private VNet with public internet access disabled, reachable only via an encrypted **Azure VPN Gateway**.
+* **Microsoft Entra ID:** Enforces Multi-Factor Authentication (MFA) and Role-Based Access Control (RBAC) so staff only access records permitted for their clinical role.
+* **Microsoft Defender for Cloud:** Continuously audits Azure resources against the built-in **HIPAA / HITRUST** compliance standard and alerts IT administrators to any security misconfiguration.
 
-•	Mapped Azure Service: Azure SQL Managed Instance (PaaS): Azure SQL Managed Instance is an intelligent, scalable cloud database service that offers near-100% compatibility with on-premises SQL Server Enterprise Edition, while automating backups, high availability, and software patching.
+---
 
-•	Healthcare Use Case and Justification: Doctors experience zero disruption because all existing SQL queries work identically, while Azure automatically creates encrypted point-in-time backups every 5 minutes and replicates data across regions to protect against accidental deletion or ransomware.
+## 4. Sustainability and Hybrid Cloud Boundaries
+* **Sustainability Impact:** Consolidating 16 local servers and 24/7 air conditioning onto Microsoft’s renewable-energy data centers reduces Ace Medicare Clinics’ IT carbon footprint by **~74%**.
+* **When On-Premises Remains Better:** Real-time **urgent care patient monitors** and **diagnostic imaging acquisition terminals** require zero-latency local operation even if external internet fails. These remain on-premises and are governed centrally through **Azure Arc**.
 
-Scenario 4: Radiology X-Ray, CT, and MRI Image Archive
-•	On-Premises Situation: The radiology department generates 50 TB of large medical imaging files (DICOM format) stored on local Storage Area Network (SAN) hard drives that are 95% full. Buying extra SAN hard drives costs tens of thousands of dollars every year.
-
-•	Migration Strategy (Rearchitect): Rearchitecting means redesigning how data or applications are structured so they natively use cloud-scale storage and modern APIs.
-
-•	Mapped Azure Services: Azure Health Data Services (DICOM Service) and Azure Blob Storage: Azure Health Data Services is a specialized PaaS offering built specifically to ingest, store, and exchange healthcare data using medical standards (FHIR and DICOM). Azure Blob Storage is Microsoft’s massively scalable object storage solution for unstructured files, offering Hot, Cool, and Archive pricing tiers.
-
-•	Healthcare Use Case and Justification: When a radiologist takes an X-ray today, it is stored in the fast Azure Blob Hot tier via the DICOM service for instant viewing. After 90 days, an automated rule moves the scan to the Cool tier, and after 1 year, to the ultra-cheap Archive tier—satisfying the 7-year medical record retention law at a fraction of local SAN disk costs.
-
-Scenario 5: Hospital Staff Email and Clinical Communication
-•	On-Premises Situation: 800 doctors, nurses, and administrators rely on an aging on-premises Microsoft Exchange 2016 email server. Whenever the local internet or power flickers, hospital email stops working.
-
-•	Migration Strategy (Replace): Replacing means retiring an in-house server system completely and adopting a ready-to-use commercial cloud software product.
-
-•	Mapped Azure / Microsoft Cloud Service: Microsoft 365 (Exchange Online and Microsoft Teams - SaaS / Software as a Service): SaaS delivers complete, ready-to-use applications over the internet managed entirely by the vendor.
-
-•	Healthcare Use Case and Justification: Retiring the physical Exchange server eliminates hardware maintenance while giving clinical teams encrypted email, shared calendars, and HIPAA-compliant Teams messaging on hospital tablets and desktops with a 99.9% uptime guarantee.
-________________________________________
-3. Healthcare Regulatory Compliance and Security Architecture
-Because Ace Medicare Clinics handles sensitive Protected Health Information (PHI), moving to the cloud requires strict adherence to HIPAA (Health Insurance Portability and Accountability Act) and NDPR (Nigeria Data Protection Regulation). Below is how specific Azure security services enforce compliance:
-
-•	Microsoft HIPAA Business Associate Agreement (BAA): A legal contract automatically offered by Microsoft confirming that Azure services meet HIPAA security safeguards for storing and processing patient data.
-
-•	Azure Key Vault and Encryption: All patient databases and X-ray files are encrypted at rest using 256-bit AES encryption and encrypted in transit using TLS 1.2+. Azure Key Vault acts as a hardware-backed digital safe that stores and rotates the hospital’s encryption keys so unauthorized users can never read raw data.
-
-•	Azure Virtual Network (VNet) and Private Endpoints: An Azure VNet creates a completely isolated private network in the cloud. By enabling Private Endpoints, the hospital’s SQL database and EHR servers are hidden from the public internet and can be reached only through an encrypted Azure VPN Gateway connected to the hospital building.
-
-•	Microsoft Entra ID (Identity and Access Management): Formerly Azure Active Directory, Entra ID verifies staff identities. Ace Medicare Clinics enforces Multi-Factor Authentication (MFA) and Role-Based Access Control (RBAC), ensuring a receptionist can view appointment schedules but cannot open confidential lab results.
-
-•	Microsoft Defender for Cloud: A Cloud Security Posture Management (CSPM) tool that continuously scans Ace Medicare Clinics’ Azure environment against the built-in HIPAA / HITRUST compliance blueprint, alerting IT staff immediately if a firewall port is left open or encryption is disabled.
-________________________________________
-4. Sustainability and Hybrid Cloud Boundaries (When On-Premises Remains Better)
-•	Environmental Sustainability: Replacing 16 power-hungry basement servers and 24/7 air conditioning units with Microsoft’s carbon-neutral cloud data centers reduces Ace Medicare Clinics’ IT energy consumption and carbon footprint by approximately 74%.
-
-•	When On-Premises Remains Necessary: Cloud computing requires an internet connection. Critical bedside machines—such as real-time ICU patient heart monitors and local MRI scanner acquisition workstations—require sub-millisecond response times and must keep working even if external internet cables are cut. These systems will stay on-premises and be managed centrally alongside cloud servers using Azure Arc.
